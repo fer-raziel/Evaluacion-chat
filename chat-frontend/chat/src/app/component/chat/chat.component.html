@@ -1,0 +1,43 @@
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Columna de usuarios conectados -->
+            <div class="col-md-3 columna-usuarios d-none d-md-block">
+                <h4>Usuarios Conectados</h4>
+                <ul class="list-group lista-usuarios ">
+                    <!-- Ejemplo de usuario estático -->
+                    <li class="list-group-item" *ngFor="let user of getOnlineUsers()">
+                        <span><span class="circle"></span>{{ user }}</span>
+                      </li>
+                    <!-- Puedes agregar usuarios dinámicamente aquí -->
+                </ul>
+            </div>
+            <!-- Chat general -->
+            <div class="col-md-9 p-5 chat-general">
+                <h4>Chat General</h4>
+                <div class="card">
+                    <div class="card-body">
+                      <div class="conversation" *ngFor="let message of chat.chats">
+                        <div [ngClass]="{'local': message.messageType === 1, 'remoto': message.messageType === 2}">
+                            <span ><strong>{{message.username}} :</strong> </span> {{ message.texto}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               <!-- Formulario para enviar mensajes -->
+                <form class="form-mensaje" (submit)="sendMessage()">
+                    <div class="input-group mt-3">
+                        <div class="col-2 p-2"><input type="text" class="form-control col-2" placeholder="usuario"[value]="chat.user" [(ngModel)]="editedUser" (change)="checkUserEdit()" name="usuario">
+                        </div>
+                        <div class="col-8 p-2">
+                            <input type="text" class="form-control col-10" placeholder="Escribe tu mensaje..." [(ngModel)]="text"  name="text">
+                        </div>
+                        <div class="col-2 p-2">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
